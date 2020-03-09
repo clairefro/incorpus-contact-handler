@@ -8,13 +8,16 @@ app.use(bodyParser.json());
 
 const port = process.env.PORT || 3000
 
-app.get('/', (req, res) => res.send('Hello World!'))
+///////////
+// ROUTES
+app.get('/', (req, res) => res.send('Go away!'))
 
 app.get('/contacts', (req, res) => res.send('contact endpoint'))
 
 app.post('/contacts', (req, res) => {
-  console.log(req);
-  return res.send('received POST req');
+  console.log(req.body);
+  return res.send(`received ${req.body.email}`);
 });
+///////////
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
