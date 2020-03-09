@@ -7,6 +7,6 @@ const port = process.env.PORT || 3000
 
 app.get('/', (req, res) => res.send('Hello World!'))
 
-app.get('/contacts', (req, res) => res.send(process.env.TEST))
+app.get('/contacts', (req, res) => res.send('contact endpoint'))
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
