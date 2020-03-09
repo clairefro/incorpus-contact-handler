@@ -6,10 +6,8 @@ const bodyParser = require('body-parser');
 
 const app = express();
 app.use(bodyParser.json());
-// app.use(cors({
-//   credentials: true,
-//   origin: 'https://localhost:8000'
-// }));
+//allow OPTIONS on all resources
+app.options('*', cors())
 
 const port = process.env.PORT || 3000
 
@@ -19,7 +17,7 @@ app.get('/', (req, res) => res.send('Go away!'))
 
 app.get('/contacts', (req, res) => res.send('contact endpoint'))
 
-app.post('/contacts', cors(), (req, res) => {
+app.post('/contacts', (req, res) => {
   console.log(req.body);
   return res.send(`received ${req.body.email}`);
 });
