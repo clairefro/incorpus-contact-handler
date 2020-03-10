@@ -4,21 +4,19 @@ const cors = require('cors');
 const express = require('express');
 const bodyParser = require('body-parser');
 
-var whitelist = ['http://localhost:8000', 'https://localhost:8000']
-// var corsOptionsDelegate = function (req, callback) {
-//   var corsOptions;
-//   if (whitelist.indexOf(req.header('Origin')) !== -1) {
-//     corsOptions = { origin: true } // reflect (enable) the requested origin in the CORS response
-//   } else {
-//     corsOptions = { origin: false } // disable CORS for this request
-//   }
-//   callback(null, corsOptions) // callback expects two parameters: error and options
-// }
 
 const app = express();
 app.use(bodyParser.json());
 //allow OPTIONS on all resources
-app.options('*', cors({credentials: true, origin: true}))
+// app.options('*', cors({credentials: true, origin: true}))
+
+//CORS middleware
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header('Access-Control-Allow-Methods', 'DELETE, PUT, GET, POST');
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 const port = process.env.PORT || 3000
 
