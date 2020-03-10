@@ -34,9 +34,9 @@ app.post('/contacts', async (req, res) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Api-Token": process.env.ACTIVE_CAMPAIGN_API_KEY,
+        "Api-Token": process.env.ACTIVE_CAMPAIGN_API_KEY
       },
-      body: req.body,
+      body: req.body
     })
     .then(res => res.json())
     .then(res => console.log(res))
