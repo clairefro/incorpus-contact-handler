@@ -29,18 +29,14 @@ app.get('/', (req, res) => res.send('Go away!'))
 app.get('/contacts', (req, res) => res.send('contact endpoint'))
 
 app.post('/contacts', async (req, res) => {
-  console.log(req.body);
+  console.log(JSON.stringify(req.body));
   await fetch(CONTACT_API_ENDPOINT, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "Api-Token": process.env.ACTIVE_CAMPAIGN_API_KEY
       },
-      body: {
-        "contact": {
-          "email": req.body.contact.email
-        }
-      }
+      body: JSON.stringify(req.body)
     })
     .then(res => res.json())
     .then(res => console.log(res))
