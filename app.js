@@ -4,27 +4,21 @@ const cors = require('cors');
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const whitelist = ['http://localhost:8000/', 'https://localhost:8000/']
-const corsOptions = {
-  origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true)
-    } else {
-      callback(new Error('Not allowed by CORS'))
-    }
+var whitelist = ['http://localhost:8000', 'https://localhost:8000']
+var corsOptionsDelegate = function (req, callback) {
+  var corsOptions;
+  if (whitelist.indexOf(req.header('Origin')) !== -1) {
+    corsOptions = { origin: true } // reflect (enable) the requested origin in the CORS response
+  } else {
+    corsOptions = { origin: false } // disable CORS for this request
   }
+  callback(null, corsOptions) // callback expects two parameters: error and options
 }
 
 const app = express();
 app.use(bodyParser.json());
 //allow OPTIONS on all resources
-// app.options('*', cors())
-//
-// app.use(function(req, res, next) {
-//   res.header("Access-Control-Allow-Origin", "YOUR-DOMAIN.TLD"); // update to match the domain you will make the request from
-//   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-//   next();
-// });
+app.options('*', cors())
 
 const port = process.env.PORT || 3000
 
@@ -34,7 +28,7 @@ app.get('/', (req, res) => res.send('Go away!'))
 
 app.get('/contacts', (req, res) => res.send('contact endpoint'))
 
-app.post('/contacts', cors(corsOptions),(req, res) => {
+app.post('/contacts', cors(corsOptionsDelegate),(req, res) => {
   console.log(req.body);
   return res.send(`received ${req.body.email}`);
 });
