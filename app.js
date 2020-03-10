@@ -27,7 +27,7 @@ app.get('/', (req, res) => res.send('Go away!'))
 
 app.get('/contacts', (req, res) => res.send('contact endpoint'))
 
-app.post('/contacts', (req, res) => {
+app.post('/contacts', async (req, res) => {
   console.log(req.body);
   await fetch(CONTACT_API_ENDPOINT, {
       method: "POST",
