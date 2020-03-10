@@ -9,6 +9,7 @@ const CONTACT_API_ENDPOINT = "https://clairefroelich.api-us1.com/api/3/contacts"
 
 const app = express();
 app.use(bodyParser.json());
+app.use(cors());
 //allow OPTIONS on all resources
 // app.options('*', cors({credentials: true, origin: true}))
 
