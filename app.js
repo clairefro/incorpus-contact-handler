@@ -4,6 +4,7 @@ const cors = require('cors');
 const express = require('express');
 const bodyParser = require('body-parser');
 
+const CONTACT_API_ENDPOINT = "https://clairefroelich.api-us1.com/api/3/contact"
 
 const app = express();
 app.use(bodyParser.json());
@@ -28,6 +29,18 @@ app.get('/contacts', (req, res) => res.send('contact endpoint'))
 
 app.post('/contacts', (req, res) => {
   console.log(req.body);
+  await fetch(CONTACT_API_ENDPOINT, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Api-Token": process.env.ACTIVE_CAMPAIGN_API_KEY,
+      },
+      body: req.body,
+    })
+    .then(res => res.json())
+    .then(res => console.log(res))
+    .catch(err => console.log({err}))
+
   return res.send(`received ${req.body.email}`);
 });
 ///////////
