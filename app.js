@@ -22,7 +22,6 @@ app.use(bodyParser.json());
 
 const port = process.env.PORT || 3000
 
-///////////
 // ROUTES
 app.get('/', (req, res) => res.send('Go away!'))
 
@@ -46,4 +45,4 @@ app.post('/contacts', async (req, res) => {
 });
 ///////////
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+app.listen(port, () => console.log(`App listening on port ${port}!`))
