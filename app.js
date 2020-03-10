@@ -5,7 +5,7 @@ const cors = require('cors');
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const CONTACT_API_ENDPOINT = "https://clairefroelich.api-us1.com/api/3/contact"
+const CONTACT_API_ENDPOINT = "https://clairefroelich.api-us1.com/api/3/contacts"
 
 const app = express();
 app.use(bodyParser.json());
